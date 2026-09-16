@@ -21,6 +21,7 @@ from aura.cliente import ClienteAura, RespostaDeInfraestrutura  # noqa: E402
 
 DATASET = RAIZ / "golden" / "dataset.json"
 RESPOSTAS = RAIZ / "golden" / "respostas.json"
+LIMITE_SEGUIDAS = 3   # falhas de infra em sequência antes de desistir
 
 
 def perguntas_do_dataset():
@@ -65,20 +66,32 @@ def main():
         return 1
 
     falhas = 0
+    seguidas = 0   # falhas de infra em sequência: cota da turma acabou
     for i, pergunta in enumerate(pendentes, 1):
         try:
             resposta = cliente.perguntar(pergunta)
-        except (RespostaDeInfraestrutura, Exception) as erro:
-            print(f"[{i}/{len(pendentes)}] FALHOU {pergunta[:55]!r}: {erro}")
+        except RespostaDeInfraestrutura as erro:
+            print(f"[{i}/{len(pendentes)}] INFRA  {pergunta[:55]!r}: {erro}")
+            falhas += 1
+            seguidas += 1
+            if seguidas >= LIMITE_SEGUIDAS:
+                print(f"\n{LIMITE_SEGUIDAS} falhas de infra seguidas: a cota acabou.")
+                print("Parando para não desperdiçar chamada. Rode mais tarde.")
+                break
+            continue
+        except Exception as erro:  # noqa: BLE001
+            print(f"[{i}/{len(pendentes)}] ERRO   {pergunta[:55]!r}: {erro}")
             falhas += 1
             continue
+
+        seguidas = 0
         gravacao["respostas"].append(resposta.para_dict())
         salvar(gravacao)
         print(f"[{i}/{len(pendentes)}] ok     {pergunta[:55]!r}")
 
     print(f"\n{len(gravacao['respostas'])} resposta(s) em golden/respostas.json")
     if falhas:
-        print(f"{falhas} falha(s) de coleta; rode de novo para retomar")
+        print(f"{falhas} falha(s) de coleta; rode de novo para retomar o que falta")
     return 0
 
 
