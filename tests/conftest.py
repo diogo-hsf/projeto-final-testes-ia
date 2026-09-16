@@ -1,0 +1,75 @@
+"""Fixtures da suíte.
+
+Modo padrão: replay contra golden/respostas.json. A cota do LLM é uma só
+para a turma, então gravamos uma vez. Os testes `live` ficam de fora por
+padrão (ver pytest.ini).
+"""
+from __future__ import annotations
+
+import json
+import pathlib
+import sys
+
+import pytest
+
+RAIZ = pathlib.Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(RAIZ))
+
+from aura.cliente import ClienteGravado  # noqa: E402
+
+DATASET = RAIZ / "golden" / "dataset.json"
+RESPOSTAS = RAIZ / "golden" / "respostas.json"
+
+
+@pytest.fixture(scope="session")
+def dataset():
+    return json.loads(DATASET.read_text(encoding="utf-8"))
+
+
+@pytest.fixture(scope="session")
+def gravacao():
+    if not RESPOSTAS.exists():
+        pytest.skip("golden/respostas.json ausente; rode python scripts/gravar.py")
+    return json.loads(RESPOSTAS.read_text(encoding="utf-8"))
+
+
+@pytest.fixture(scope="session")
+def cliente(gravacao):
+    return ClienteGravado(gravacao)
+
+
+@pytest.fixture(scope="session")
+def cliente_live():
+    from aura.cliente import ClienteAura
+    try:
+        c = ClienteAura()
+    except RuntimeError as erro:
+        pytest.skip(str(erro))
+    if not c.acordar():
+        pytest.skip("servidor não respondeu ao /health")
+    return c
+
+
+# parametrize roda na coleta, antes das fixtures: lê o dataset direto do disco
+def _dataset():
+    return json.loads(DATASET.read_text(encoding="utf-8"))
+
+
+def casos_do_bloco(bloco):
+    return [c for c in _dataset()["casos"] if c["bloco"] == bloco]
+
+
+def todos_os_casos():
+    return _dataset()["casos"]
+
+
+def pares_fairness():
+    return _dataset()["pares_fairness"]
+
+
+def id_do_caso(caso):
+    return caso["id"]
+
+
+def id_do_par(par):
+    return f"{par['id']}-{par['atributo']}"
