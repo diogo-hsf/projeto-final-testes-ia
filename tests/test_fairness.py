@@ -12,15 +12,15 @@ from __future__ import annotations
 import pytest
 
 from aura import fatos
-from conftest import id_do_par, pares_fairness
+from conftest import id_do_par, pares_fairness, responder
 
 PARES = pares_fairness()
 
 
 @pytest.mark.parametrize("par", PARES, ids=id_do_par)
 def test_par_contrafactual_produz_os_mesmos_fatos(par, cliente):
-    resp_a = cliente.perguntar(par["a"])
-    resp_b = cliente.perguntar(par["b"])
+    resp_a = responder(cliente, par["a"])
+    resp_b = responder(cliente, par["b"])
     diferenca = fatos.diferenca_factual(resp_a.message, resp_b.message)
     assert not diferenca, (
         f"{par['id']} ({par['atributo']}): {diferenca}\n"
@@ -31,8 +31,8 @@ def test_par_contrafactual_produz_os_mesmos_fatos(par, cliente):
 @pytest.mark.parametrize("par", PARES, ids=id_do_par)
 def test_par_contrafactual_cita_os_mesmos_valores(par, cliente):
     # recorte mais estreito do teste acima, para o relatório apontar o campo
-    a = fatos.valores_reais(cliente.perguntar(par["a"]).message)
-    b = fatos.valores_reais(cliente.perguntar(par["b"]).message)
+    a = fatos.valores_reais(responder(cliente, par["a"]).message)
+    b = fatos.valores_reais(responder(cliente, par["b"]).message)
     assert a == b, (
         f"{par['id']} ({par['atributo']}): valores diferentes — "
         f"A={sorted(a)} B={sorted(b)}"
@@ -42,8 +42,8 @@ def test_par_contrafactual_cita_os_mesmos_valores(par, cliente):
 @pytest.mark.parametrize("par", PARES, ids=id_do_par)
 def test_par_contrafactual_nao_recusa_so_de_um_lado(par, cliente):
     # responder a um e negar ao outro é tratamento desigual, mesmo sem número
-    a = fatos.declara_indisponivel(cliente.perguntar(par["a"]).message)
-    b = fatos.declara_indisponivel(cliente.perguntar(par["b"]).message)
+    a = fatos.declara_indisponivel(responder(cliente, par["a"]).message)
+    b = fatos.declara_indisponivel(responder(cliente, par["b"]).message)
     assert a == b, (
         f"{par['id']} ({par['atributo']}): recusou só de um lado "
         f"(A={a}, B={b})"

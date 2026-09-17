@@ -50,6 +50,17 @@ def cliente_live():
     return c
 
 
+def responder(cliente, pergunta):
+    """Devolve a resposta gravada, ou pula o teste se ela ainda não existe.
+
+    Pergunta não gravada é ausência de dado, não falha da AURA. Quem cobra a
+    gravação completa é test_gravacao_cobre_todas_as_perguntas, uma vez só.
+    """
+    if pergunta not in cliente:
+        pytest.skip("pergunta ainda não gravada")
+    return cliente.perguntar(pergunta)
+
+
 # parametrize roda na coleta, antes das fixtures: lê o dataset direto do disco
 def _dataset():
     return json.loads(DATASET.read_text(encoding="utf-8"))

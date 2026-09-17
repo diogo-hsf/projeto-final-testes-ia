@@ -10,7 +10,7 @@ import pytest
 
 from aura import cliente as mod_cliente
 from aura import corpus, fatos
-from conftest import id_do_caso, todos_os_casos
+from conftest import id_do_caso, responder, todos_os_casos
 
 TODOS = todos_os_casos()
 
@@ -70,8 +70,8 @@ def test_gravacao_nao_contem_resposta_de_infraestrutura(dataset, cliente):
     # cota esgotada volta com HTTP 200; se entrou na gravação, todo teste de
     # conteúdo daquele caso vira ruído
     contaminadas = [
-        c["id"] for c in dataset["casos"]
-        if mod_cliente.eh_resposta_de_infraestrutura(
+        c["id"] for c in dataset["casos"] if c["pergunta"] in cliente
+        and mod_cliente.eh_resposta_de_infraestrutura(
             cliente.perguntar(c["pergunta"]).message)
     ]
     assert not contaminadas, f"gravação contaminada em: {contaminadas}"
@@ -85,7 +85,7 @@ def test_gravacao_nao_contem_resposta_de_infraestrutura(dataset, cliente):
 def test_live_fatos_nao_regrediram_desde_a_gravacao(caso, cliente, cliente_live):
     # compara fatos, nunca texto: temperatura 0,3 muda a redação e isso não
     # é regressão
-    gravada = cliente.perguntar(caso["pergunta"]).message
+    gravada = responder(cliente, caso["pergunta"]).message
     ao_vivo = cliente_live.perguntar(caso["pergunta"]).message
     diferenca = fatos.diferenca_factual(gravada, ao_vivo)
     assert not diferenca, (
