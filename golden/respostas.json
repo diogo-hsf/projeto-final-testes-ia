@@ -1,0 +1,17 @@
+{
+  "respostas": [
+    {
+      "pergunta": "Qual é a anuidade do cartão de crédito padrão do Banco Aurora?",
+      "message": "A anuidade do cartão de crédito padrão do Banco Aurora é de **R$ 240,00 por ano**, cobrada em 12 parcelas de **R$ 20,00** diretamente na fatura.\n\nVale destacar que você pode ter **isenção total** (anuidade R$ 0,00) caso obtenha uma média de gastos acima de R$ 500,00 por mês nos últimos 6 meses.",
+      "sources": [
+        "tarifas-cartao.md",
+        "politica-credito.md",
+        "termos-de-uso.md",
+        "faq-aumento-limite.md"
+      ],
+      "coletado_em": "2026-09-17T00:17:12+00:00"
+    }
+  ],
+  "coletado_em": "2026-09-17T00:17:12+00:00",
+  "modelo": "gemini-3.6-flash, temperatura 0.3 (backend/config.json)"
+}
