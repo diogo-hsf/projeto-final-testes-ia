@@ -43,7 +43,7 @@ adversariais) e 8 pares contrafactuais. 353 testes coletados.
 
 ```
 $ python -m pytest
-5 failed, 250 passed, 86 skipped, 12 deselected
+5 failed, 256 passed, 83 skipped, 12 deselected
 ```
 
 Log completo em `log-execucao.txt`.

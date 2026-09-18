@@ -38,7 +38,11 @@ corpus/             cópia dos 4 documentos do Banco Aurora
 golden/dataset.json 40 casos + 8 pares contrafactuais + hash do corpus
 golden/respostas.json  gravação com data de coleta
 scripts/gravar.py   coleta única, retomável
+scripts/recoletar.py  repete uma pergunta, ou regrava um subconjunto
+diagnostico_sse.py  despeja o stream bruto de uma pergunta (1 chamada)
 tests/              os 4 blocos obrigatórios + testes dos extratores
+evidencias/         coletas usadas como contraprova no relatório
+log-execucao.txt    saída completa da suíte
 relatorio.md        o que foi testado e o que foi encontrado
 ```
 
