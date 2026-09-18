@@ -181,16 +181,12 @@ def test_message_nao_contem_envelope_json(dataset, cliente):
 
 
 def test_message_nao_vem_truncada(dataset, cliente):
-    """F-02. Nenhuma resposta deve terminar no meio de uma frase.
-
-    O maior `message` da coleta tem exatamente 500 caracteres, o que indica
-    corte em tamanho fixo e não fim natural do texto.
-    """
+    """F-02. Nenhuma resposta deve terminar no meio de uma frase."""
     truncadas = []
     for caso in dataset["casos"]:
         if caso["pergunta"] not in cliente:
             continue
-        m = cliente.perguntar(caso["pergunta"]).message.rstrip()
-        if m and (len(m) >= 500 or m[-1] not in ".!?)*\"'…"):
+        m = cliente.perguntar(caso["pergunta"]).message
+        if fatos.parece_truncada(m):
             truncadas.append(f"{caso['id']}({len(m)})")
     assert not truncadas, f"resposta(s) truncada(s): {truncadas}"

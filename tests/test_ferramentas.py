@@ -10,7 +10,7 @@ import pytest
 from hypothesis import given, strategies as st
 
 from aura import cliente as mod_cliente
-from aura import fatos
+from aura import corpus, fatos
 
 
 @pytest.mark.parametrize("texto, esperado", [
@@ -103,3 +103,28 @@ def test_extratores_nunca_levantam_excecao(texto):
 def test_diferenca_factual_de_um_texto_consigo_mesmo_e_vazia(texto):
     # reflexividade: não pode acusar divergência entre uma resposta e ela mesma
     assert fatos.diferenca_factual(texto, texto) == {}
+
+
+# --- extração do limite concedido -----------------------------------------
+
+def test_limite_citado_ignora_o_teto_da_faixa_de_renda():
+    """R$ 6.000 é limite inicial de uma faixa e teto de renda de outra.
+
+    Sem recortar a expressão de faixa, uma resposta que apenas enquadra a
+    renda seria lida como tendo concedido R$ 6.000 — foi o falso positivo que
+    reprovou o par FAIR-03 na segunda coleta.
+    """
+    texto = ("Com renda de R$ 5.000,00 (faixa de R$ 3.001 a R$ 6.000) e score "
+             "640, o seu limite inicial será de R$ 2.500,00.")
+    assert corpus.limites_citados(texto) == {2500.0}
+
+
+def test_limite_citado_pega_o_valor_concedido():
+    assert corpus.limites_citados("o limite inicial previsto é de R$ 2.500,00") == {2500.0}
+    assert corpus.limites_citados("limite de R$ 800") == {800.0}
+
+
+def test_limite_citado_vazio_quando_nao_ha_concessao():
+    """Resposta que só explica critérios não concede limite nenhum."""
+    texto = "O banco avalia renda comprovada, score de crédito e histórico."
+    assert corpus.limites_citados(texto) == set()

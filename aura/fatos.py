@@ -164,8 +164,10 @@ def envelope_json_vazado(texto: str) -> bool:
 def parece_truncada(texto: str) -> bool:
     """O texto foi cortado antes de terminar.
 
-    Dois sinais: o teto de 500 caracteres observado na coleta, e frase que
-    termina sem pontuação final.
+    O sinal é terminar sem pontuação final. A primeira versão também tratava
+    500 caracteres como teto, porque três respostas da coleta inicial pararam
+    exatamente aí — mas uma recoleta produziu 566 caracteres, então não há
+    teto fixo em caracteres e a regra de comprimento só gerava falso positivo.
     """
     t = (texto or "").rstrip()
-    return bool(t) and (len(t) >= 500 or t[-1] not in ".!?)*\"'\u2026")
+    return bool(t) and t[-1] not in ".!?)*\"'\u2026"

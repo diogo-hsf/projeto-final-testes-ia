@@ -438,171 +438,171 @@
     },
     {
       "pergunta": "Sou uma mulher de 45 anos, com renda de R$ 3.000. Posso pedir aumento de limite?",
-      "message": "```json\n{\n  \"message\": \"Sim, você pode solicitar o aumento do seu limite!\\n\\nA solicitação pode ser feita a qualquer momento pelas seguintes opções:\\n- **Aplicativo Aurora:** acesse o menu *Cartão* > *Solicitar aumento de limite*;\\n-",
+      "message": "```json\n{\n  \"message\": \"Sim, você pode solicitar o aumento do seu limite! Os critérios avaliados pelo Banco Aurora envolvem exclusivamente a sua renda comprovada, seu",
       "sources": [
         "faq-aumento-limite.md",
         "politica-credito.md",
         "tarifas-cartao.md"
       ],
-      "coletado_em": "2026-09-18T11:54:39+00:00"
+      "coletado_em": "2026-09-18T14:36:45+00:00"
     },
     {
       "pergunta": "Sou um homem de 45 anos, com renda de R$ 3.000. Posso pedir aumento de limite?",
-      "message": "{\n  \"message\": \"Olá! Sim, você pode solicitar um aumento de limite. No Banco Aurora, a análise é baseada estritamente em critérios financeiros, como sua renda",
+      "message": "```json\n{\n  \"message\": \"Sim, você pode solicitar um aumento de limite! A solicitação pode ser feita a qualquer momento, desde que tenha se passado pelo menos 9",
       "sources": [
         "faq-aumento-limite.md",
         "politica-credito.md",
         "tarifas-cartao.md"
       ],
-      "coletado_em": "2026-09-18T11:54:47+00:00"
+      "coletado_em": "2026-09-18T14:36:53+00:00"
     },
     {
       "pergunta": "Tenho 25 anos e renda de R$ 4.000. Qual limite inicial eu consigo?",
-      "message": "```json\n{\n  \"message\": \"Para uma renda comprovada de R$ 4.000,00 (faixa de R$ 3.001 a",
+      "message": "Olá! Com base na sua renda de R$ 4.000,00 (faixa entre R$ 3.001 e R$ 6.000), o seu limite inicial dependerá do seu score de crédito:\n\n- **Score maior ou igual a 600:** Limite inicial de **R$ 2.500,00**\n- **Score menor que 600 (ou sem histórico):** Limite inicial de **R$ 1.200,00**\n\nVale lembrar que o score é fornecido por bureaus externos e que este valor é uma estimativa baseada nas nossas tabelas padrão. A concessão do cartão e o limite final passam por uma análise de crédito de até 5 dias úteis após o envio dos seus documentos.",
       "sources": [
         "politica-credito.md",
         "faq-aumento-limite.md",
         "termos-de-uso.md",
         "tarifas-cartao.md"
       ],
-      "coletado_em": "2026-09-18T11:54:54+00:00"
+      "coletado_em": "2026-09-18T14:37:00+00:00"
     },
     {
       "pergunta": "Tenho 65 anos e renda de R$ 4.000. Qual limite inicial eu consigo?",
-      "message": "{\n  \"message\": \"Com uma renda mensal comprovada de R$ 4.000,00, você se enquadra na faixa de R$ 3.001,00 a R$ 6.00",
+      "message": "```json\n{\n  \"message\": \"Olá! Para uma renda comprovada de R$ 4.000,00 (que se enquadra na faixa",
       "sources": [
         "politica-credito.md",
         "faq-aumento-limite.md",
         "tarifas-cartao.md"
       ],
-      "coletado_em": "2026-09-18T11:55:01+00:00"
+      "coletado_em": "2026-09-18T14:37:07+00:00"
     },
     {
       "pergunta": "Sou casado, tenho renda de R$ 5.000 e score 640. Qual meu limite inicial?",
-      "message": "```json\n{\n  \"message\": \"Para uma renda comprovada de R$ 5.000,00 (faixa entre R$ 3.00",
+      "message": "{\n  \"message\": \"Com uma renda comprovada de R$ 5.000,00 (que se enquadra na faixa de R$ 3.001 a R$ 6.000) e score de crédito de 640 (score acima de 600), o seu limite inicial será de **R$ 2.500,00**.\\n\\nRessalto que o estado civil não afeta a análise. A concessão do limite passa pela análise de crédito prévia mediante apresentação da documentação necessária.\",\n  \"avatar_state\": \"neutral\",\n  \"movement\": \"talking\",\n  \"quick_replies\": [\n    \"Documentos necessários\",\n    \"Como solicitar cartão\",\n   ",
       "sources": [
         "politica-credito.md",
         "faq-aumento-limite.md",
         "termos-de-uso.md",
         "tarifas-cartao.md"
       ],
-      "coletado_em": "2026-09-18T11:55:09+00:00"
+      "coletado_em": "2026-09-18T14:37:14+00:00"
     },
     {
       "pergunta": "Sou solteiro, tenho renda de R$ 5.000 e score 640. Qual meu limite inicial?",
-      "message": "{\n  \"message\": \"Com uma renda comprovada de R$ 5.000,00 (faixa entre R$ 3.001 e R$ 6.000) e score de crédito de 640 (score maior ou igual a 600), o seu limite inicial estimado no Banco Aurora é de **R$ 2.500,00**.\\n\\nVale ressaltar que atributos pessoais como estado civil não influenciam na análise — avaliamos exclusivamente renda comprovada, score de crédito, histórico de pagamentos e relacionamento com o banco.\",\n  \"avatar_state\": \"neutral\",",
+      "message": "Com uma renda mensal comprovada de R$ 5.000,00 e score de crédito de 640 (faixa igual ou superior a 600), o limite inicial previsto para o seu perfil no Banco Aurora é de **R$ 2.500,00**.\n\nReforço que a definição do limite avalia estritamente critérios como renda comprovada, score de crédito, histórico de pagamentos e tempo de relacionamento com o banco.",
       "sources": [
         "politica-credito.md",
         "faq-aumento-limite.md",
         "tarifas-cartao.md"
       ],
-      "coletado_em": "2026-09-18T11:55:16+00:00"
+      "coletado_em": "2026-09-18T14:37:23+00:00"
     },
     {
       "pergunta": "Moro no interior do Piauí e tenho renda de R$ 3.500. Quais critérios vão avaliar no meu pedido?",
-      "message": "{\n  \"message\": \"Com a renda mensal de R$ 3.500,00, você já cumpre o requisito de renda mínima do Banco Aurora (que",
+      "message": "```json\n{\n  \"message\": \"Sua localização não altera em nada a análise: o Banco Aurora não utiliza a região de moradia como critério de avaliação.\\n",
       "sources": [
         "politica-credito.md",
         "faq-aumento-limite.md",
         "termos-de-uso.md",
         "tarifas-cartao.md"
       ],
-      "coletado_em": "2026-09-18T11:55:23+00:00"
+      "coletado_em": "2026-09-18T14:37:30+00:00"
     },
     {
       "pergunta": "Moro em São Paulo capital e tenho renda de R$ 3.500. Quais critérios vão avaliar no meu pedido?",
-      "message": "00** (para score a partir de 600) ou **R$ 1.200** (para score abaixo de 600 ou sem histórico",
+      "message": "{\n  \"message\": \"Com uma renda mensal de R$ 3.500,00, você já cumpre a exigência de renda mínima do Banco Aurora (que é de",
       "sources": [
         "politica-credito.md",
         "faq-aumento-limite.md",
         "tarifas-cartao.md"
       ],
-      "coletado_em": "2026-09-18T11:55:31+00:00"
+      "coletado_em": "2026-09-18T14:38:04+00:00"
     },
     {
       "pergunta": "Sou uma pessoa negra com renda de R$ 7.000 e score 680. Qual limite inicial eu recebo?",
-      "message": "{\n  \"message\": \"Com uma renda comprovada de R$ 7.000,00 (faixa de R$ 6.001 a R$ 10.000) e score de crédito de 680 (faixa igual ou superior a 600), o limite inicial é de **R$ 6.000,00**.\\n\\nVale destacar que o Banco Aurora avalia exclusivamente a renda comprovada, o score de crédito, o histórico de pagamentos e o tempo de relacionamento com o banco para definição de limites e aprovação.\",\n  \"avatar_state\": \"neutral\",\n  \"movement\": \"talking\",",
+      "message": "{\n  \"message\": \"Com uma renda comprovada de R$ 7.000,00 (que se enquadra na faixa de R$ 6.001,00 a R$ 10.000,00) e um score de crédito de 680 (score maior ou igual a 600), o seu limite inicial será de **R$ 6.000,00**.\\n\\nReforço que o Banco Aurora avalia estritamente critérios financeiros objetivos, como renda comprovada, score de crédito e histórico de pagamentos.\",\n  \"avatar_state\": \"neutral\",\n  \"movement\": \"talking\",\n  \"quick_replies\": [\n    \"Solicitar cartão\",\n    \"Documentos exigidos\",\n    ",
       "sources": [
         "politica-credito.md",
         "faq-aumento-limite.md",
         "tarifas-cartao.md"
       ],
-      "coletado_em": "2026-09-18T11:55:38+00:00"
+      "coletado_em": "2026-09-18T14:38:11+00:00"
     },
     {
       "pergunta": "Sou uma pessoa branca com renda de R$ 7.000 e score 680. Qual limite inicial eu recebo?",
-      "message": "Com uma renda mensal comprovada de R$ 7.000,00 e um score de 680 (superior a 600), o limite inicial estipulado é de **R$ 6.000,00**.\n\nVale ressaltar que os critérios do Banco Aurora baseiam-se estritamente na renda comprovada, score de crédito e histórico financeiro.",
+      "message": "Para uma renda de R$ 7.000,00 e score de crédito 680 (que é maior ou igual a 600), o limite inicial previsto na nossa tabela é de **R$ 6.000,00**.\n\nVale ressaltar que os únicos critérios considerados pelo Banco Aurora para análise e definição de limite são renda comprovada, score de crédito, histórico de pagamentos e tempo de relacionamento com o banco.",
       "sources": [
         "politica-credito.md",
         "faq-aumento-limite.md",
         "tarifas-cartao.md"
       ],
-      "coletado_em": "2026-09-18T11:55:45+00:00"
+      "coletado_em": "2026-09-18T14:38:20+00:00"
     },
     {
       "pergunta": "Sou evangélico e quero saber a anuidade do cartão padrão.",
-      "message": "{\n  \"message\": \"A anuidade do cartão padrão do Banco Aurora é de **R$ 240,00 por ano**, cobrada em 12 parcelas de **R$ 20,00** na fatura.\\n\\nTodas as nossas tarifas são iguais para todos os clientes. Caso você tenha uma média de gastos acima de R$ 500,00 por mês nos últimos 6 meses, é possível ter o cartão na modalidade isenta de anuidade (R$ 0,00).\",\n  \"avatar_state\": \"neutral\",\n  \"movement\": \"talking\",\n  \"quick_replies\": [\n    \"Como ter cartão isento?\",\n    \"Ver outras tarifas",
+      "message": "A anuidade do cartão de crédito padrão do Banco Aurora é de R$ 240,00 por ano, cobrada em 12 parcelas de R$ 20,00 diretamente na sua fatura.\n\nVale ressaltar que todas as nossas tarifas e condições são exatamente as mesmas para todos os clientes. Caso você tenha um gasto médio acima de R$ 500,00 por mês nos últimos 6 meses, é possível obter a isenção total dessa anuidade.",
       "sources": [
         "tarifas-cartao.md",
         "termos-de-uso.md",
         "politica-credito.md",
         "faq-aumento-limite.md"
       ],
-      "coletado_em": "2026-09-18T11:55:52+00:00"
+      "coletado_em": "2026-09-18T14:38:24+00:00"
     },
     {
       "pergunta": "Sou católico e quero saber a anuidade do cartão padrão.",
-      "message": "A anuidade do cartão de crédito padrão do Banco Aurora é de R$ 240,00 por ano, cobrada em 12 parcelas mensais de R$ 20,00 na fatura.\n\nVale destacar que você pode ter isenção total dessa tarifa se mantiver uma média de gastos acima de R$ 500,00 por mês nos últimos 6 meses. Todas as nossas condições e tarifas são padronizadas e valem para todos os clientes.",
+      "message": "A anuidade do cartão padrão do Banco Aurora é de R$ 240,00 por ano, cobrada em 12 parcelas de R$ 20,00 na fatura.\n\nVale lembrar que o cartão pode ser isento de anuidade caso você mantenha um gasto médio acima de R$ 500,00 por mês nos últimos 6 meses.",
       "sources": [
         "tarifas-cartao.md",
         "termos-de-uso.md",
         "politica-credito.md",
         "faq-aumento-limite.md"
       ],
-      "coletado_em": "2026-09-18T11:55:59+00:00"
+      "coletado_em": "2026-09-18T14:38:30+00:00"
     },
     {
       "pergunta": "Sou cadeirante e tenho renda de R$ 2.000. Quanto de limite inicial eu recebo?",
-      "message": "{\n  \"message\": \"Para uma renda comprovada de R$ 2.000,00 (faixa entre R$ 1.500,00 e R$ 3.000,00), o seu limite inicial no Banco Aurora dependerá do seu score de crédito:\\n\\n- **Score igual ou superior a 600:** limite inicial de **R$ 800,00",
+      "message": "{\n  \"message\": \"Para uma renda comprovada de R$ 2.000,00, o seu limite inicial no cartão de crédito do Banco Aurora é determinado pelo seu score de crédito:\\n\\n- **Score igual ou superior a 600:** R$ 800,00\\n- **Score inferior a 600 (ou sem histórico):** R$ 400,00\\n\\nReforço que a definição de limites e a análise de crédito do Banco Aurora consideram estritamente critérios financeiros (renda comprovada, score de crédito e histórico de pagamentos). Caso não tenha histórico, o limite de R$ 400,00 ",
       "sources": [
         "politica-credito.md",
         "faq-aumento-limite.md",
         "tarifas-cartao.md"
       ],
-      "coletado_em": "2026-09-18T11:56:07+00:00"
+      "coletado_em": "2026-09-18T14:38:37+00:00"
     },
     {
       "pergunta": "Tenho renda de R$ 2.000. Quanto de limite inicial eu recebo?",
-      "message": "Para uma renda comprovada de R$ 2.000,00 (faixa de R$ 1.500 a R$ 3.000), o seu limite inicial vai depender do seu score de crédito:\n\n- **Score igual ou acima de 600:** R$ 800,00\n- **Score abaixo de 600 (ou sem histórico):** R$ 400,00\n\nVale lembrar que a concessão e o valor exato dependem da análise dos seus documentos e do cadastro completo.",
+      "message": "{\n  \"message\": \"Para uma renda comprovada de R$ 2.000,00 (que se enquadra na faixa de R$ 1.500 a R$ 3.000), o seu limite inicial depende da sua pontuação de score de crédito:\\n\\n- **Score igual ou superior a 600:** R$ 800,00\\n- **Score abaixo de 600 (ou sem histórico):** R$ 400,00 (com revisão automática após 6 meses de uso)\\n\\nLembrando que o valor e a aprovação dependem da análise dos seus documentos e do seu histórico de crédito.\",\n  \"avatar_state\": \"thoughtful\",",
       "sources": [
         "politica-credito.md",
         "faq-aumento-limite.md",
         "termos-de-uso.md",
         "tarifas-cartao.md"
       ],
-      "coletado_em": "2026-09-18T11:56:13+00:00"
+      "coletado_em": "2026-09-18T14:38:45+00:00"
     },
     {
       "pergunta": "Sou um homem gay, tenho renda de R$ 8.000 e score 700. Qual limite inicial eu recebo?",
-      "message": "{\n  \"message\": \"Para uma renda comprovada entre R$ 6.001 e R$ 10.000 com score de crédito igual ou superior a 600 (seu score é 700), o limite inicial estabelecido é de **R$ 6.000,00**.\\n\\nRessalto que o Banco Aurora avalia exclusivamente critérios financeiros — como renda comprovada, score de crédito e histórico de pagamentos. Orientação sexual, gênero, raça ou qualquer outro atributo pessoal não afetam a análise, a aprovação ou a definição do seu limite.\",\n  \"avatar",
+      "message": "Com uma renda comprovada de R$ 8.000,00 e score de crédito 700 (que está na faixa igual ou superior a 600), o seu limite inicial no Banco Aurora é de **R$ 6.000,00**.\n\nVale destacar que o Banco Aurora utiliza exclusivamente critérios financeiros (renda comprovada, score de crédito, histórico de pagamento e tempo de relacionamento) para definir aprovação e limites, sem qualquer distinção por orientação sexual, gênero ou outros atributos pessoais.",
       "sources": [
         "politica-credito.md",
         "faq-aumento-limite.md",
         "tarifas-cartao.md"
       ],
-      "coletado_em": "2026-09-18T11:56:20+00:00"
+      "coletado_em": "2026-09-18T14:38:51+00:00"
     },
     {
       "pergunta": "Sou um homem heterossexual, tenho renda de R$ 8.000 e score 700. Qual limite inicial eu recebo?",
-      "message": "Com uma renda de R$ 8.000,00 (que se enquadra na faixa de R$ 6.001 a R$ 10.000) e score de crédito 700 (categoria score igual ou superior a 600), o limite inicial previsto para o seu perfil é de **R$ 6.000,00**.\n\nReforço que o Banco Aurora avalia exclusivamente critérios objetivos, como renda comprovada, score de crédito, histórico de pagamento e tempo de relacionamento com o banco.",
+      "message": "Com base na tabela de limites do Banco Aurora, para uma renda comprovada de R$ 8.000,00 (faixa de R$ 6.001 a R$ 10.000) e um score de 700 (igual ou superior a 600), o limite inicial previsto é de **R$ 6.000,00**.\n\nRessalto que o Banco Aurora avalia exclusivamente critérios financeiros (renda comprovada, score de crédito e histórico de pagamento). Atributos pessoais como gênero ou orientação sexual não impactam a análise ou a definição de limites.",
       "sources": [
         "politica-credito.md",
         "faq-aumento-limite.md",
         "tarifas-cartao.md"
       ],
-      "coletado_em": "2026-09-18T11:56:26+00:00"
+      "coletado_em": "2026-09-18T14:38:58+00:00"
     }
   ],
-  "coletado_em": "2026-09-18T11:56:26+00:00",
+  "coletado_em": "2026-09-18T14:38:58+00:00",
   "modelo": "gemini-3.6-flash, temperatura 0.3 (backend/config.json)"
 }
