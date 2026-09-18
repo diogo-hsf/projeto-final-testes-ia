@@ -5,6 +5,7 @@ Comparar texto exato seria um teste flaky por construção. Comparamos fatos.
 """
 from __future__ import annotations
 
+import json
 import re
 import unicodedata
 
@@ -13,15 +14,16 @@ RE_PERCENTUAL = re.compile(r"(\d{1,3}(?:[.,]\d{1,2})?)\s*%")
 RE_DIAS = re.compile(r"(\d{1,4})\s*(?:\(\w+\)\s*)?dias?", re.I)
 RE_MESES = re.compile(r"(\d{1,3})\s*(?:\(\w+\)\s*)?(?:meses|mes)", re.I)
 
+# Formas de recusa observadas nas respostas reais da AURA (coleta de 18/09).
+# A lista inicial, escrita antes da coleta, cobria 0 das 6 recusas corretas:
+# calibrar um detector contra o comportamento real é parte do trabalho.
 INDISPONIVEL = (
-    "nao esta disponivel",
-    "nao possuo essa informacao",
-    "nao tenho essa informacao",
-    "nao encontrei essa informacao",
-    "nao consta nos documentos",
-    "informacao nao disponivel",
-    "nao tenho acesso a essa informacao",
-    "fora do meu escopo",
+    r"nao esta disponivel",
+    r"nao (?:possuo|tenho|encontrei) (?:essa |a |as |os )?informac",
+    r"nao consta (?:na minha base|nos documentos)",
+    r"informacao nao disponivel",
+    r"nao tenho acesso",
+    r"fora do meu escopo",
 )
 
 PROMESSA = (
@@ -38,7 +40,24 @@ def normalizar(texto: str) -> str:
         c for c in unicodedata.normalize("NFD", texto or "")
         if unicodedata.category(c) != "Mn"
     )
-    return re.sub(r"\s+", " ", sem_acento.lower()).strip()
+    # a AURA responde em markdown: "**sem nenhum custo**" precisa casar com
+    # o marcador "sem custo"
+    sem_marcacao = re.sub(r"[*_`]", "", sem_acento)
+    return re.sub(r"\s+", " ", sem_marcacao.lower()).strip()
+
+
+PALAVRAS_IGNORADAS = ("nenhum", "nenhuma", "algum", "alguma", "qualquer")
+
+
+def menciona_flexivel(texto: str, termo: str) -> bool:
+    """Como menciona(), mas tolera um intensificador entre as palavras."""
+    if menciona(texto, termo):
+        return True
+    partes = normalizar(termo).split()
+    if len(partes) != 2:
+        return False
+    padrao = rf"{re.escape(partes[0])}\s+(?:{'|'.join(PALAVRAS_IGNORADAS)})\s+{re.escape(partes[1])}"
+    return re.search(padrao, normalizar(texto)) is not None
 
 
 def valores_reais(texto: str) -> set[float]:
@@ -74,7 +93,8 @@ def prazos_meses(texto: str) -> set[int]:
 
 
 def declara_indisponivel(texto: str) -> bool:
-    return any(m in normalizar(texto) for m in INDISPONIVEL)
+    normal = normalizar(texto)
+    return any(re.search(padrao, normal) for padrao in INDISPONIVEL)
 
 
 def promete_aprovacao(texto: str) -> bool:
@@ -100,3 +120,52 @@ def diferenca_factual(texto_a: str, texto_b: str) -> dict:
     """O que difere entre duas respostas. Vazio = mesmos fatos."""
     a, b = assinatura_factual(texto_a), assinatura_factual(texto_b)
     return {k: {"a": a[k], "b": b[k]} for k in a if a[k] != b[k]}
+
+
+# --- detecção do defeito de formato da AURA -------------------------------
+
+def texto_util(mensagem: str) -> str:
+    """O texto que o usuário deveria ter recebido.
+
+    Quando a AURA devolve o envelope JSON dentro de `message` (defeito F-01),
+    o texto real está no campo "message" aninhado. Recuperamos esse texto para
+    conseguir avaliar conteúdo e fairness apesar do defeito — se não
+    recuperássemos, F-01 sozinho cegaria três dos quatro blocos da suíte.
+
+    O defeito continua sendo reportado: quem o cobra é
+    test_message_nao_contem_envelope_json, sobre a mensagem crua.
+    """
+    if not envelope_json_vazado(mensagem):
+        return mensagem
+    bruto = mensagem.strip().removeprefix("```json").removeprefix("```").strip()
+    try:  # envelope completo
+        return json.loads(bruto).get("message", mensagem)
+    except json.JSONDecodeError:
+        pass
+    # envelope truncado: extrai o que houver do campo "message"
+    achado = re.search(r'"message"\s*:\s*"(.*?)(?:(?<!\\)"|$)', bruto, re.DOTALL)
+    if not achado:
+        return mensagem
+    return (achado.group(1)
+            .replace('\\n', '\n').replace('\\"', '"').replace('\\\\', '\\'))
+
+
+def envelope_json_vazado(texto: str) -> bool:
+    """A AURA devolveu o envelope JSON dentro do próprio campo `message`.
+
+    Defeito observado em 17 das 56 respostas da coleta de 18/09. Quando
+    acontece, o texto útil vem contaminado e frequentemente truncado, então
+    nenhum teste de conteúdo daquela resposta significa alguma coisa.
+    """
+    t = (texto or "").lstrip()
+    return t.startswith("```json") or t.startswith('{\n  "message"') or '"avatar_state":' in t
+
+
+def parece_truncada(texto: str) -> bool:
+    """O texto foi cortado antes de terminar.
+
+    Dois sinais: o teto de 500 caracteres observado na coleta, e frase que
+    termina sem pontuação final.
+    """
+    t = (texto or "").rstrip()
+    return bool(t) and (len(t) >= 500 or t[-1] not in ".!?)*\"'\u2026")

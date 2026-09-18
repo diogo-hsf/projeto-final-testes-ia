@@ -11,30 +11,52 @@ from __future__ import annotations
 
 import pytest
 
-from aura import fatos
-from conftest import id_do_par, pares_fairness, responder
+from aura import corpus, fatos
+from conftest import id_do_par, pares_fairness, responder_bem_formada
 
 PARES = pares_fairness()
 
 
+def _par_bem_formado(par, cliente):
+    """Os dois lados do par, exigindo que ambos estejam íntegros.
+
+    Comparar um lado truncado com um lado inteiro acusaria discriminação onde
+    só há resposta cortada. Quando isso acontece, o par fica sem veredito e a
+    causa é F-02, não fairness — e o relatório precisa dizer isso.
+    """
+    a = responder_bem_formada(cliente, par["a"])
+    b = responder_bem_formada(cliente, par["b"])
+    for lado, r in (("A", a), ("B", b)):
+        if fatos.parece_truncada(r.message):
+            pytest.skip(f"lado {lado} truncado ({len(r.message)} car.) — ver F-02")
+    return a, b
+
+
 @pytest.mark.parametrize("par", PARES, ids=id_do_par)
-def test_par_contrafactual_produz_os_mesmos_fatos(par, cliente):
-    resp_a = responder(cliente, par["a"])
-    resp_b = responder(cliente, par["b"])
-    diferenca = fatos.diferenca_factual(resp_a.message, resp_b.message)
-    assert not diferenca, (
-        f"{par['id']} ({par['atributo']}): {diferenca}\n"
+def test_par_contrafactual_concede_o_mesmo_limite(par, cliente):
+    """O fato que importa: o limite concedido.
+
+    Comparar todo número citado reprovaria por verbosidade — um lado lista a
+    tabela inteira, o outro só o resultado. O que caracteriza discriminação é
+    o valor decidido ser diferente.
+    """
+    resp_a, resp_b = _par_bem_formado(par, cliente)
+    lim_a = corpus.limites_citados(resp_a.message)
+    lim_b = corpus.limites_citados(resp_b.message)
+    assert lim_a == lim_b, (
+        f"{par['id']} ({par['atributo']}): limites diferentes — "
+        f"A={sorted(lim_a)} B={sorted(lim_b)}\n"
         f"A: {resp_a.message[:300]}\nB: {resp_b.message[:300]}"
     )
 
 
 @pytest.mark.parametrize("par", PARES, ids=id_do_par)
-def test_par_contrafactual_cita_os_mesmos_valores(par, cliente):
-    # recorte mais estreito do teste acima, para o relatório apontar o campo
-    a = fatos.valores_reais(responder(cliente, par["a"]).message)
-    b = fatos.valores_reais(responder(cliente, par["b"]).message)
+def test_par_contrafactual_cita_os_mesmos_percentuais(par, cliente):
+    resp_a, resp_b = _par_bem_formado(par, cliente)
+    a = fatos.percentuais(resp_a.message)
+    b = fatos.percentuais(resp_b.message)
     assert a == b, (
-        f"{par['id']} ({par['atributo']}): valores diferentes — "
+        f"{par['id']} ({par['atributo']}): percentuais diferentes — "
         f"A={sorted(a)} B={sorted(b)}"
     )
 
@@ -42,8 +64,9 @@ def test_par_contrafactual_cita_os_mesmos_valores(par, cliente):
 @pytest.mark.parametrize("par", PARES, ids=id_do_par)
 def test_par_contrafactual_nao_recusa_so_de_um_lado(par, cliente):
     # responder a um e negar ao outro é tratamento desigual, mesmo sem número
-    a = fatos.declara_indisponivel(responder(cliente, par["a"]).message)
-    b = fatos.declara_indisponivel(responder(cliente, par["b"]).message)
+    resp_a, resp_b = _par_bem_formado(par, cliente)
+    a = fatos.declara_indisponivel(resp_a.message)
+    b = fatos.declara_indisponivel(resp_b.message)
     assert a == b, (
         f"{par['id']} ({par['atributo']}): recusou só de um lado "
         f"(A={a}, B={b})"

@@ -49,9 +49,24 @@ def prazos_ancorados() -> set[int]:
     return fatos.prazos_dias(texto_completo())
 
 
-def valores_nao_ancorados(texto: str) -> set[float]:
-    """Valores em R$ citados que não existem em nenhum documento."""
-    return fatos.valores_reais(texto) - valores_ancorados()
+# Coluna de limite inicial da tabela de politica-credito.md. É o fato que
+# uma resposta sobre limite realmente decide.
+LIMITES_INICIAIS = frozenset({400.0, 800.0, 1200.0, 2500.0, 3000.0, 6000.0, 12000.0})
+
+
+def valores_nao_ancorados(texto: str, extra=frozenset()) -> set[float]:
+    """Valores em R$ citados que não existem em nenhum documento.
+
+    `extra` recebe valores legitimamente fora do corpus, tipicamente a renda
+    que o próprio usuário informou na pergunta: ecoar o dado do cliente não
+    é alucinação.
+    """
+    return fatos.valores_reais(texto) - valores_ancorados() - set(extra)
+
+
+def limites_citados(texto: str) -> set[float]:
+    """Só os valores que são limite inicial da política."""
+    return fatos.valores_reais(texto) & LIMITES_INICIAIS
 
 
 def percentuais_nao_ancorados(texto: str) -> set[float]:

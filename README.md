@@ -5,7 +5,7 @@ Sistema sob teste: **AURA**, assistente virtual RAG do Banco Aurora.
 
 ## Como rodar
 
-```bash
+```powershell
 pip install -r requirements.txt
 python -m pytest
 ```
@@ -15,8 +15,8 @@ Roda contra `golden/respostas.json`, a gravação versionada. Não consome cota.
 Contra o sistema no ar (consome cota da turma):
 
 ```bash
-set AURA_USUARIO=grupo03
-set AURA_SENHA=...
+$env:AURA_USUARIO = "grupo03"
+$env:AURA_SENHA = "..."
 python -m pytest -m live
 ```
 
@@ -57,20 +57,25 @@ falha antes que os testes de alucinação virem ruído.
 
 ## Log de execução
 
+Coleta de 18/09/2026, 56 respostas gravadas.
+
 ```
 $ python -m pytest
-...
+5 failed, 250 passed, 86 skipped, 12 deselected
 ```
 
-*(colar a saída completa depois da coleta)*
+Log completo em `log-execucao.txt`.
 
-Antes da coleta, os 32 testes que não dependem da gravação já rodam:
+As 5 falhas são os dois defeitos documentados em `relatorio.md`. Os `skipped`
+são casos sem aquele tipo de fato esperado, mais os pares de fairness cegados
+por F-02. Os `deselected` são os testes `live`.
 
-```
-32 passed, 307 skipped, 12 deselected
-```
-
-Os `skipped` esperam `golden/respostas.json`. Os `deselected` são os `live`.
+Na primeira execução a suíte deu 28 falhas. 23 delas eram limitação dos
+extratores, não defeito da AURA: a lista de frases de recusa não cobria
+nenhuma das formas que ela realmente usa, a ancoragem contava a renda
+informada na pergunta como valor inventado, e o comparador de fairness
+reprovava por verbosidade. A calibração contra as respostas reais está
+registrada nos commits.
 
 ## Falhas encontradas
 

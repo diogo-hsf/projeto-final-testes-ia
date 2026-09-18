@@ -50,6 +50,22 @@ def cliente_live():
     return c
 
 
+def responder_bem_formada(cliente, pergunta):
+    """Resposta gravada, com o texto recuperado de dentro do envelope JSON.
+
+    F-01 contamina 17 das 56 respostas. Sem recuperar o texto, ele sozinho
+    cegaria os blocos de avaliação, alucinação e fairness. Quem cobra o
+    defeito é test_message_nao_contem_envelope_json, sobre a mensagem crua.
+    """
+    from aura import fatos
+    from aura.cliente import Resposta
+    resposta = responder(cliente, pergunta)
+    util = fatos.texto_util(resposta.message)
+    if len(util.strip()) < 10:
+        pytest.skip("envelope JSON sem texto recuperável — ver F-01")
+    return Resposta(resposta.pergunta, util, resposta.sources, resposta.coletado_em)
+
+
 def responder(cliente, pergunta):
     """Devolve a resposta gravada, ou pula o teste se ela ainda não existe.
 

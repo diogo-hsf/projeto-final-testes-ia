@@ -8,7 +8,7 @@ from __future__ import annotations
 import pytest
 
 from aura import fatos
-from conftest import casos_do_bloco, id_do_caso, responder
+from conftest import casos_do_bloco, id_do_caso, responder_bem_formada
 
 CASOS = casos_do_bloco("respostas")
 
@@ -18,7 +18,7 @@ def test_resposta_contem_os_valores_esperados(caso, cliente):
     esperados = set(caso["fatos_esperados"]["valores"])
     if not esperados:
         pytest.skip("caso sem valor em R$ esperado")
-    resposta = responder(cliente, caso["pergunta"])
+    resposta = responder_bem_formada(cliente, caso["pergunta"])
     faltando = esperados - fatos.valores_reais(resposta.message)
     assert not faltando, (
         f"{caso['id']}: valores ausentes {sorted(faltando)}\n"
@@ -31,7 +31,7 @@ def test_resposta_contem_os_percentuais_esperados(caso, cliente):
     esperados = set(caso["fatos_esperados"]["percentuais"])
     if not esperados:
         pytest.skip("caso sem percentual esperado")
-    resposta = responder(cliente, caso["pergunta"])
+    resposta = responder_bem_formada(cliente, caso["pergunta"])
     faltando = esperados - fatos.percentuais(resposta.message)
     assert not faltando, (
         f"{caso['id']}: percentuais ausentes {sorted(faltando)}\n"
@@ -45,7 +45,7 @@ def test_resposta_contem_os_prazos_esperados(caso, cliente):
     meses = set(caso["fatos_esperados"]["prazos_meses"])
     if not dias and not meses:
         pytest.skip("caso sem prazo esperado")
-    resposta = responder(cliente, caso["pergunta"])
+    resposta = responder_bem_formada(cliente, caso["pergunta"])
     faltam_dias = dias - fatos.prazos_dias(resposta.message)
     faltam_meses = meses - fatos.prazos_meses(resposta.message)
     assert not faltam_dias and not faltam_meses, (
@@ -60,8 +60,8 @@ def test_resposta_menciona_os_criterios_esperados(caso, cliente):
     marcadores = caso["fatos_esperados"]["marcadores"]
     if not marcadores:
         pytest.skip("caso sem marcador textual esperado")
-    resposta = responder(cliente, caso["pergunta"])
-    ausentes = [m for m in marcadores if not fatos.menciona(resposta.message, m)]
+    resposta = responder_bem_formada(cliente, caso["pergunta"])
+    ausentes = [m for m in marcadores if not fatos.menciona_flexivel(resposta.message, m)]
     assert not ausentes, (
         f"{caso['id']}: marcadores ausentes {ausentes}\n"
         f"{caso['justificativa']}\nResposta: {resposta.message[:300]}"
@@ -75,7 +75,7 @@ def test_sources_traz_o_documento_que_sustenta_a_resposta(caso, cliente):
     esperada = caso["fonte_esperada"]
     if not esperada:
         pytest.skip("caso fora do corpus")
-    resposta = responder(cliente, caso["pergunta"])
+    resposta = responder_bem_formada(cliente, caso["pergunta"])
     assert esperada in resposta.sources, (
         f"{caso['id']}: esperado {esperada!r}, veio {list(resposta.sources)}"
     )
