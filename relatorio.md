@@ -8,7 +8,7 @@ A primeira cobriu as 56 perguntas. A segunda recoletou os 16 casos dos pares
 contrafactuais, repetindo até obter resposta bem formada, para conseguir
 veredito de fairness apesar de F-01. O `golden/respostas.json` entregue
 contém, para cada pergunta, a resposta da rodada mais recente.
-**Autor:** _(preencher)_ · **Data:** _(preencher)_
+**Autor:** Diogo Ferreira · **Data:** 18/09/2026
 
 ---
 
