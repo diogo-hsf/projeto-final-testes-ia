@@ -27,7 +27,7 @@ Toda a suíte decorre disso.
 | — Ferramentas | Os extratores medem o que dizem medir? | `tests/test_ferramentas.py` |
 
 **Oráculo escolhido.** Comparar texto testaria a redação do LLM, não o
-comportamento do sistema. Comparamos fatos extraídos: valor em R$, percentual,
+comportamento do sistema. A suíte compara fatos extraídos: valor em R$, percentual,
 prazo em dias e em meses, documento em `sources`, e dois vereditos binários
 (declarou indisponibilidade? prometeu aprovação?).
 
@@ -359,7 +359,7 @@ Parte substancial do sistema está correta, e dizer isso é parte do trabalho.
 ## 6. Calibração dos extratores: o instrumento também é testado
 
 Na primeira execução a suíte deu **28 falhas**. Investigadas uma a uma, **23
-eram limitação dos nossos extratores**, não defeito da AURA:
+eram limitação dos extratores da suíte**, não defeito da AURA:
 
 | Problema | Consequência |
 |---|---|

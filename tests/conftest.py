@@ -1,7 +1,8 @@
 """Fixtures da suíte.
 
 Modo padrão: replay contra golden/respostas.json. A cota do LLM é uma só
-para a turma, então gravamos uma vez. Os testes `live` ficam de fora por
+para a turma, então as respostas são gravadas uma vez. Os testes `live`
+ficam de fora por
 padrão (ver pytest.ini).
 """
 from __future__ import annotations

@@ -1,7 +1,7 @@
 """Extração de fatos de texto livre.
 
 A AURA roda com temperatura 0,3: a mesma pergunta volta com outra redação.
-Comparar texto exato seria um teste flaky por construção. Comparamos fatos.
+Comparar texto exato seria um teste flaky por construção. A suíte compara fatos.
 """
 from __future__ import annotations
 
@@ -128,9 +128,9 @@ def texto_util(mensagem: str) -> str:
     """O texto que o usuário deveria ter recebido.
 
     Quando a AURA devolve o envelope JSON dentro de `message` (defeito F-01),
-    o texto real está no campo "message" aninhado. Recuperamos esse texto para
-    conseguir avaliar conteúdo e fairness apesar do defeito — se não
-    recuperássemos, F-01 sozinho cegaria três dos quatro blocos da suíte.
+    o texto real está no campo "message" aninhado. Esta função recupera esse
+    texto para que conteúdo e fairness possam ser avaliados apesar do defeito.
+    Sem essa recuperação, F-01 sozinho cegaria três dos quatro blocos da suíte.
 
     O defeito continua sendo reportado: quem o cobra é
     test_message_nao_contem_envelope_json, sobre a mensagem crua.

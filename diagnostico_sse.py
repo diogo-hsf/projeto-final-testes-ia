@@ -2,7 +2,7 @@
 
 Serviu para responder uma questão que decidiu a análise de F-01: o servidor
 manda um evento de dados ou vários? Se fossem vários, o envelope JSON que
-aparece no campo `message` seria bug do nosso cliente, que pegaria só o
+aparece no campo `message` seria bug do cliente da suíte, que pegaria só o
 primeiro pedaço. O resultado de 18/09 foi **um único** evento `data:` com
 `message`, conforme o formato documentado no guia — ou seja, o defeito é do
 sistema, não da suíte.

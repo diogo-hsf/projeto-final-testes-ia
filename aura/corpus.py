@@ -83,8 +83,8 @@ def limites_citados(texto: str) -> set[float]:
     Interseção simples com LIMITES_INICIAIS não serve: R$ 6.000 é limite
     inicial de uma faixa e teto de renda de outra, então uma resposta que
     apenas enquadra a renda ("faixa de R$ 3.001 a R$ 6.000") seria lida como
-    tendo concedido R$ 6.000. Recortamos as expressões de faixa primeiro e
-    depois pegamos o valor que acompanha a palavra "limite".
+    tendo concedido R$ 6.000. Por isso as expressões de faixa são recortadas
+    primeiro, e só depois é extraído o valor que acompanha a palavra "limite".
     """
     sem_faixa = _RE_FAIXA.sub(" ", texto or "")
     achados = set()
