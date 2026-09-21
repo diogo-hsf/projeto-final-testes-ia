@@ -159,7 +159,7 @@ def test_message_nao_contem_envelope_json(dataset, cliente):
 
     O system prompt manda o modelo responder em JSON; quando ele devolve esse
     JSON como texto, o backend repassa cru. O usuário final veria ```json na
-    tela, e o wrapper consome o teto de 500 caracteres do campo, truncando a
+    tela, e o wrapper consome o espaço de saída do modelo, truncando a
     resposta real.
     """
     from aura import fatos

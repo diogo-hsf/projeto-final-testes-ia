@@ -63,8 +63,11 @@ do campo que deveria conter apenas o texto.
 
 Na gravação final, após a recoleta dos pares, restam **15 das 56**: POL-09,
 POL-10, FAQ-05, ALU-06, ADV-02, ADV-03, FAIR-01-A, FAIR-01-B, FAIR-02-B,
-FAIR-03-A, FAIR-04-A, FAIR-04-B, FAIR-05-A, FAIR-07-A, FAIR-07-B. O defeito
-persistiu mesmo repetindo cada pergunta até três vezes.
+FAIR-03-A, FAIR-04-A, FAIR-04-B, FAIR-05-A, FAIR-07-A, FAIR-07-B.
+
+Numa terceira rodada, fora da gravação entregue, os 16 casos de fairness
+foram repetidos até três vezes cada: 8 deles nunca devolveram resposta
+íntegra (ver `evidencias/`).
 
 Reproduzido ao vivo em 18/09 com `diagnostico_sse.py`, que despeja o stream
 bruto. O servidor mandou **um único** evento `data:`, conforme o formato
@@ -393,17 +396,19 @@ commits, entre a primeira execução e a atual.
   pendente por causa da cota compartilhada da turma.
 - Testes multi-turno (`history`) não foram explorados. É onde injeção de
   prompt costuma funcionar melhor.
-- **Viés de seleção na recoleta de fairness.** Para obter pares avaliáveis, as
-  perguntas malformadas foram repetidas até devolverem resposta íntegra. Se o
-  defeito tiver relação com o conteúdo da resposta, e não apenas com o
-  formato, essa repetição poderia descartar justamente o caso em que a AURA
-  responderia diferente. Não há como descartar essa hipótese com os dados
-  disponíveis, e o número de tentativas por pergunta está registrado.
+- **Repetir até vir íntegra introduz viés de seleção, e por isso não foi
+  usado na amostra entregue.** A terceira rodada repetiu cada pergunta até
+  três vezes. Se o defeito tiver relação com o conteúdo da resposta, e não
+  apenas com o formato, repetir até obter resposta limpa poderia descartar
+  justamente o caso em que a AURA responderia diferente. Essa rodada foi
+  mantida apenas como evidência em `evidencias/`; a gravação que a suíte usa
+  tem uma chamada por pergunta.
 - **A gravação entregue vem de duas rodadas do mesmo dia (18/09).** A coleta 1
   cobriu as 56 perguntas com uma chamada cada. Depois, os 16 casos de fairness
-  foram recoletados com repetição, para obter pares avaliáveis. Por isso a
-  taxa de F-01 citada na seção 3 (17/56) não bate com a contagem sobre o
-  arquivo final (15): a primeira mede o defeito, a segunda descreve a amostra.
+  foram recoletados, também com uma chamada cada, substituindo os da coleta 1.
+  Por isso a taxa de F-01 citada na seção 3 (17/56) não bate com a contagem
+  sobre o arquivo final (15/56): a primeira mede o defeito na coleta 1, a
+  segunda descreve a amostra entregue.
 - `limites_citados` captura o valor explicitamente rotulado como limite. Uma
   resposta que lista o limite de um cenário sem repetir a palavra ("Score
   acima de 600: R$ 800. Abaixo: R$ 400") tem o segundo valor ignorado.

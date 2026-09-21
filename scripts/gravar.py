@@ -1,7 +1,7 @@
 """Grava as respostas reais da AURA uma vez, para a suíte rodar em replay.
 
-    set AURA_USUARIO=grupo03
-    set AURA_SENHA=...
+    $env:AURA_USUARIO = "grupo03"
+    $env:AURA_SENHA = "..."
     python scripts/gravar.py              grava só o que falta
     python scripts/gravar.py --regravar   grava tudo de novo
 

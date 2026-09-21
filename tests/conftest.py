@@ -53,7 +53,7 @@ def cliente_live():
 def responder_bem_formada(cliente, pergunta):
     """Resposta gravada, com o texto recuperado de dentro do envelope JSON.
 
-    F-01 contamina 17 das 56 respostas. Sem recuperar o texto, ele sozinho
+    F-01 contaminou 30% das respostas na coleta 1. Sem recuperar o texto, ele sozinho
     cegaria os blocos de avaliação, alucinação e fairness. Quem cobra o
     defeito é test_message_nao_contem_envelope_json, sobre a mensagem crua.
     """
