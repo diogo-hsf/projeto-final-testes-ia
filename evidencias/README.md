@@ -16,10 +16,12 @@ com até 3 tentativas por pergunta (37 chamadas no total).
 Não é a gravação usada pela suíte. A suíte roda contra
 `golden/respostas.json`, que é a rodada 2.
 
-Este arquivo está aqui porque é a **contraprova da primeira hipótese sobre
-F-01**. A hipótese era que o defeito seria disparado pela menção a atributos
-sensíveis. O par FAIR-07 refuta isso: os dois lados falharam nas 3
-tentativas, inclusive o lado B, que não menciona atributo nenhum.
+Este arquivo está aqui porque foi usado para verificar a **primeira hipótese
+sobre F-01**: a de que o defeito seria disparado pela menção a atributos
+pessoais. No par FAIR-07, os dois lados vieram incompletos nas 3 tentativas,
+inclusive o lado B, que não menciona atributo nenhum. Isso mostra que o
+atributo não é necessário para o defeito aparecer. Com três tentativas por
+pergunta, não dá para saber se ele aumenta a chance.
 
 O detalhe está na seção 4 do `relatorio.md`, em F-01.
 

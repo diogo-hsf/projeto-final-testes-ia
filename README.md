@@ -41,7 +41,7 @@ scripts/gravar.py   coleta única, retomável
 scripts/recoletar.py  repete uma pergunta, ou regrava um subconjunto
 diagnostico_sse.py  despeja o stream bruto de uma pergunta (1 chamada)
 tests/              os 4 blocos obrigatórios + testes dos extratores
-evidencias/         coletas usadas como contraprova no relatório
+evidencias/         coletas usadas como evidência no relatório
 log-execucao.txt    saída completa da suíte
 relatorio.md        o que foi testado e o que foi encontrado
 ```
@@ -88,8 +88,8 @@ FAILED tests/test_respostas.py::test_resposta_menciona_os_criterios_esperados[PO
 Saída completa em `log-execucao.txt`.
 
 As 5 falhas são os defeitos documentados em `relatorio.md`. Os `skipped` são
-casos sem aquele tipo de fato esperado, mais os 4 pares de fairness que
-ficaram sem veredito por causa de F-01 e F-02. Os `deselected` são os testes
+casos sem aquele tipo de fato esperado, mais os 4 pares de fairness que não
+puderam ser avaliados por causa de F-01 e F-02. Os `deselected` são os testes
 marcados `live`.
 
 ### Bloco de fairness

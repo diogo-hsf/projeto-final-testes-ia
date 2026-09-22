@@ -164,10 +164,15 @@ def envelope_json_vazado(texto: str) -> bool:
 def parece_truncada(texto: str) -> bool:
     """O texto foi cortado antes de terminar.
 
-    O sinal é terminar sem pontuação final. A primeira versão também tratava
-    500 caracteres como teto, porque três respostas da coleta inicial pararam
-    exatamente aí — mas uma recoleta produziu 566 caracteres, então não há
-    teto fixo em caracteres e a regra de comprimento só gerava falso positivo.
+    Com JSON vazado, o sinal é o JSON não fechar. Nos demais casos, é terminar
+    sem pontuação final.
+
+    A primeira versão também considerava cortada qualquer resposta com 500
+    caracteres ou mais. Isso marcou como cortada uma resposta de 566
+    caracteres que veio sem JSON e com todos os critérios esperados, então a
+    regra de tamanho foi retirada. Os 500 caracteres continuam aparecendo como
+    tamanho máximo das respostas com JSON vazado (F-02 no relatório), mas isso
+    é observação sobre o backend, não critério deste detector.
     """
     t = (texto or "").rstrip()
     if not t:
