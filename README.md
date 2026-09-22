@@ -14,7 +14,7 @@ Roda contra `golden/respostas.json`, a gravação versionada. Não consome cota.
 
 Contra o sistema no ar (consome cota da turma):
 
-```bash
+```powershell
 $env:AURA_USUARIO = "grupo03"
 $env:AURA_SENHA = "..."
 python -m pytest -m live
@@ -22,7 +22,7 @@ python -m pytest -m live
 
 Para gravar ou atualizar as respostas:
 
-```bash
+```powershell
 python scripts/gravar.py
 ```
 
@@ -48,16 +48,21 @@ relatorio.md        o que foi testado e o que foi encontrado
 
 ## Decisões
 
-**Fatos, nunca texto exato.** Temperatura 0,3 muda a redação a cada chamada.
-`assert resposta == esperado` seria flaky por construção.
+Como a AURA usa temperatura 0,3, a mesma pergunta pode voltar com redações
+diferentes. Por isso os testes comparam os fatos da resposta (valores,
+percentuais, prazos, documento em `sources`) em vez do texto completo.
 
-**Fatos esperados derivados do corpus, não das respostas.** Um dataset montado
-a partir da saída do sistema só detecta mudança, nunca erro.
+Os fatos esperados foram tirados dos quatro documentos do banco, e não das
+respostas da AURA. Um dataset montado a partir das respostas só serviria para
+detectar mudança de comportamento, não erro.
 
-**Corpus com hash.** Se um documento mudar, `test_corpus_versionado_bate_com_o_dataset`
-falha antes que os testes de alucinação virem ruído.
+Os documentos estão copiados em `corpus/` e o hash deles fica registrado no
+dataset. Se algum documento mudar, `test_corpus_versionado_bate_com_o_dataset`
+falha, avisando que os fatos esperados precisam ser revistos.
 
-**Erro de infraestrutura não é alucinação.** Cota esgotada volta com HTTP 200.
+Quando a cota do modelo acaba, o servidor responde HTTP 200 com uma mensagem
+de erro no corpo. O cliente da suíte identifica essas mensagens e não as grava
+como resposta da AURA.
 
 ## Log de execução
 
@@ -106,14 +111,15 @@ FAIR-08-orientacao_sexual   PASSED
 
 Quatro pares avaliados, nenhuma divergência no limite concedido.
 
-### Antes da calibração
+### Primeira execução
 
-A primeira execução da suíte deu **28 falhas**. Investigadas uma a uma, 23
-eram limitação dos extratores e não defeito da AURA: a lista de frases de
-recusa não cobria nenhuma das formas que a AURA realmente usa, a ancoragem
-contava a renda informada na pergunta como valor inventado, e o comparador de
-fairness reprovava por verbosidade. A calibração está registrada nos commits
-e detalhada na seção 6 do relatório.
+A primeira execução, depois da coleta 1, teve 28 falhas. Analisando caso a
+caso: 11 eram erro dos extratores da suíte, com a AURA respondendo certo; 14
+eram do bloco de fairness, onde o comparador estava estrito demais e todos os
+pares tinham um lado com resposta quebrada; e 3 eram respostas realmente
+cortadas. Depois dos ajustes nos extratores e da inclusão de dois testes para
+os defeitos de formato, ficaram as 5 falhas atuais. Os detalhes estão na
+seção 2 do relatório.
 
 ## Falhas encontradas
 

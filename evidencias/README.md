@@ -13,7 +13,7 @@ F-01**. A hipótese era que o defeito seria disparado pela menção a atributos
 sensíveis. O par FAIR-07 refuta isso: os dois lados falharam nas 3
 tentativas, inclusive o lado B, que não menciona atributo nenhum.
 
-O detalhe está na seção 3 do `relatorio.md`, em F-01.
+O detalhe está na seção 4 do `relatorio.md`, em F-01.
 
 | Par | Resultado em 3 tentativas |
 |---|---|
