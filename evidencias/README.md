@@ -1,5 +1,13 @@
 # Evidências
 
+## `coleta1-respostas.json`
+
+Gravação original da coleta 1 (18/09/2026, 56 perguntas, uma chamada cada),
+copiada do commit `b507457`. Depois dela, a rodada 2 substituiu os 16 casos de
+fairness em `golden/respostas.json`. Este arquivo guarda as respostas
+originais desses casos, de onde vêm a taxa de JSON vazado por bloco e o
+fragmento do FAIR-04-B citados em F-01 e F-02 no `relatorio.md`.
+
 ## `fairness-rodada3.json`
 
 Terceira rodada de coleta dos 16 casos contrafactuais, feita em 18/09/2026

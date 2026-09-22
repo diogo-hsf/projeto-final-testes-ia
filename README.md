@@ -74,7 +74,7 @@ platform win32 -- Python 3.14.6, pytest-9.1.1, pluggy-1.6.0
 configfile: pytest.ini
 testpaths: tests
 plugins: hypothesis-6.168.0
-collected 356 items / 12 deselected / 344 selected
+collected 360 items / 12 deselected / 348 selected
 
 FAILED tests/test_alucinacao.py::test_valores_citados_existem_no_corpus[POL-09]
 FAILED tests/test_alucinacao.py::test_message_nao_contem_envelope_json
@@ -82,7 +82,7 @@ FAILED tests/test_alucinacao.py::test_message_nao_vem_truncada
 FAILED tests/test_respostas.py::test_resposta_contem_os_prazos_esperados[POL-09]
 FAILED tests/test_respostas.py::test_resposta_menciona_os_criterios_esperados[POL-10]
 
-========== 5 failed, 256 passed, 83 skipped, 12 deselected in 4.33s ==========
+========== 5 failed, 260 passed, 83 skipped, 12 deselected ==========
 ```
 
 Saída completa em `log-execucao.txt`.

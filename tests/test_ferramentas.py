@@ -128,3 +128,16 @@ def test_limite_citado_vazio_quando_nao_ha_concessao():
     """Resposta que só explica critérios não concede limite nenhum."""
     texto = "O banco avalia renda comprovada, score de crédito e histórico."
     assert corpus.limites_citados(texto) == set()
+
+
+# --- detector de truncamento ----------------------------------------------
+
+@pytest.mark.parametrize("texto, esperado", [
+    # caso real do POL-09: JSON cortado terminando em "R$ 3." (ponto do milhar)
+    ('```json\n{\n  "message": "- **Renda de R$ 1.500 a R$ 3.000:** Limite de R$ 400\\n- **Renda de R$ 3.', True),
+    ('{\n  "message": "A anuidade é de R$ 240,00.", "sources": []}', False),
+    ("A análise leva até 5 dias úteis.", False),
+    ("O limite inicial depende do seu", True),
+])
+def test_parece_truncada(texto, esperado):
+    assert fatos.parece_truncada(texto) is esperado

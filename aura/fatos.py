@@ -170,4 +170,16 @@ def parece_truncada(texto: str) -> bool:
     teto fixo em caracteres e a regra de comprimento só gerava falso positivo.
     """
     t = (texto or "").rstrip()
-    return bool(t) and t[-1] not in ".!?)*\"'\u2026"
+    if not t:
+        return False
+    # Com JSON vazado, o sinal confiável é o JSON não fechar. A pontuação
+    # engana: o POL-09 termina em "R$ 3." (começo de "R$ 3.000" cortado), e o
+    # ponto do milhar parece fim de frase.
+    if envelope_json_vazado(t):
+        bruto = t.removeprefix("```json").removeprefix("```").strip().removesuffix("```").strip()
+        try:
+            json.loads(bruto)
+            return False
+        except json.JSONDecodeError:
+            return True
+    return t[-1] not in ".!?)*\"'\u2026"
